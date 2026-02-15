@@ -1,0 +1,16 @@
+<div class="container">
+@if (isLoading()){
+
+    trwa ładowanie
+
+} @else {
+
+    @for (item of weatherData(); track item.id_stacji){
+
+        {{item.stacja}}
+
+    } @empty {
+        Brak stacji
+    }
+} 
+</div>
