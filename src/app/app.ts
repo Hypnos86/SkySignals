@@ -2,10 +2,11 @@ import { CommonModule } from '@angular/common';
 import { Component, inject, signal } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { WeatherApi } from './weather-api';
+import { Header } from './header/header';
 
 @Component({
   selector: 'app-root',
-  imports: [],
+  imports: [Header],
   templateUrl: './app.html',
   styleUrl: './app.css',
 })
