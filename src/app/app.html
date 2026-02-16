@@ -1,18 +1,17 @@
 <app-header></app-header>
-
 <div class="container">
-@if (isLoading()){
-
-    trwa ładowanie
-
-} @else {
-
-    @for (item of weatherData(); track item.id_stacji){
-
-        {{item.stacja}}
-
-    } @empty {
-        Brak stacji
+  <div class="container overflow-hidden">
+    @if (isLoading()) {
+      trwa ładowanie
+    } @else {
+      <div class="d-flex flex-wrap gap-2 justify-content-evenly">
+        @for (city of cities(); track city.id_stacji) {
+          <a class="btn btn-outline-dark w-25">{{ city.stacja }}</a>
+        } @empty {
+          Brak stacji
+        }
+      </div>
     }
-} 
+  </div>
+  <app-footer></app-footer>
 </div>
