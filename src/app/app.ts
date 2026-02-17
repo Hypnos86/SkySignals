@@ -1,8 +1,8 @@
-import { Component, inject, signal } from '@angular/core';
-import { WeatherApi } from './weather-api';
-import { Header } from './header/header';
-import { Footer } from './footer/footer';
-import { Station } from './interface/station';
+import { Component, signal } from '@angular/core';
+import { WeatherService } from './core/services/weather-service';
+import { Header } from './shared/header/header';
+import { Footer } from './shared/footer/footer';
+import { Station } from './core/interfaces/station-interface';
 
 @Component({
   selector: 'app-root',
@@ -16,7 +16,7 @@ export class App {
   // private weatherService = inject(WeatherApi); sposób na wstrzyknięcie serwisu
 
   // poprawny sposób na wstrzyknięcie serwisu
-  constructor(private weatherService: WeatherApi) {}
+  constructor(private weatherService: WeatherService) {}
 
   weatherData = signal<any[]>([]);
   isLoading = signal(true);
