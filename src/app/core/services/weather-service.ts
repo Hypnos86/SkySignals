@@ -1,12 +1,13 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { WeatherDataInterface } from '../interfaces/weatherData-interface';
+import { StationInterface } from '../interfaces/station-interface';
 
 @Injectable({
   providedIn: 'root', // serwis jest dostepny w całej aplikacji
 })
 export class WeatherService {
-
   private apiUrl: string = 'https://danepubliczne.imgw.pl/api/data/synop'; //dane synaptyczne
 
   // wstrzykiwania seriwus przez konstruktir sposob nr 1
@@ -17,12 +18,12 @@ export class WeatherService {
   // Pobieranie danych
 
   // Pobieranie całości stacji
-  getAllWeather(): Observable<any[]> {
-    return this.http.get<any[]>(this.apiUrl);
+  getAllWeather(): Observable<StationInterface[]> {
+    return this.http.get<StationInterface[]>(this.apiUrl);
   }
 
   // pobieranie danych dla jednego miasta id = miasto
-  getCityWeather(id:number):Observable<any[]>{
-    return this.http.get<any[]>(`${this.apiUrl}/id/${id}`)
+  getWeatherByStationId(id: string): Observable<WeatherDataInterface> {
+    return this.http.get<WeatherDataInterface>(`${this.apiUrl}/id/${id}`);
   }
 }

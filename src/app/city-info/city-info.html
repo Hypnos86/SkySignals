@@ -1,1 +1,19 @@
-<p>city-info works!</p>
+<app-header></app-header>
+
+<div class="container my-5">
+  @if (stationData(); as data) {
+    <div class="card mx-auto" style="max-width: 500px">
+      <div class="card-header bg-dark text-white">
+        <h2 class="mb-0">{{ data.stacja }}</h2>
+      </div>
+
+      <div class="card-body">
+        <p>Temperatura: {{ data.temperatura }}°C</p>
+      </div>
+    </div>
+  } @else if (isLoading()) {
+    <p class="text-center">Ładowanie danych stacji...</p>
+  }
+</div>
+
+<app-footer></app-footer>

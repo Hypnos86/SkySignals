@@ -6,7 +6,7 @@
     } @else {
       <div class="d-flex flex-wrap gap-2 justify-content-evenly">
         @for (city of cities(); track city.id_stacji) {
-          <a class="btn btn-outline-dark w-25">{{ city.stacja }}</a>
+          <a [routerLink]="['/station', city.id_stacji]" class="btn btn-outline-dark w-25">{{ city.stacja }}</a>
         } @empty {
           Brak stacji
         }

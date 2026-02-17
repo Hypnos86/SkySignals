@@ -1,12 +1,13 @@
 import { Component, signal } from '@angular/core';
 import { WeatherService } from '../core/services/weather-service';
-import { Station } from '../core/interfaces/station-interface';
+import { StationInterface } from '../core/interfaces/station-interface';
 import { Header } from '../shared/header/header';
 import { Footer } from '../shared/footer/footer';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-sky-weather',
-  imports: [Header, Footer],
+  imports: [Header, Footer, RouterLink],
   templateUrl: './sky-weather.html',
   styleUrl: './sky-weather.css',
 })
@@ -18,7 +19,7 @@ export class SkyWeather {
 
   weatherData = signal<any[]>([]);
   isLoading = signal(true);
-  cities = signal<Station[]>([]);
+  cities = signal<StationInterface[]>([]);
 
   ngOnInit(): void {
     // this.weatherService.getAllWeather().subscribe({
