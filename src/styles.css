@@ -1,17 +1,29 @@
+/* src/styles.css */
+body {
+  background-image: linear-gradient(135deg, #e5e9f0 0%, #aabddd 100%); /* Delikatny gradient */
+  background-attachment: fixed; /* Tło nie przewija się razem ze stroną */
+  min-height: 100vh;
+  margin: 0;
+}
+
+.btn:hover{
+  background-color: #23586aca;
+}
+
 /* Bardzo zimno: poniżej -10 */
-.bg-ice { background-color: #003366 !important; color: white; }
+.bg-ice { background-color: #003366a2 !important; color: white; }
 
 /* Mroźno: -10 do 0 */
-.bg-cold { background-color: #007bff !important; color: white; }
+.bg-cold { background-color: #007bffb3 !important; color: white; }
 
 /* Chłodno: 1 do 10 */
-.bg-mild { background-color: #20c997 !important; color: white; }
+.bg-mild { background-color: #20c99695 !important; color: white; }
 
 /* Przyjemnie: 11 do 20 */
-.bg-warm { background-color: #ffc107 !important; color: black; }
+.bg-warm { background-color: #ffc10792 !important; color: black; }
 
 /* Ciepło: 21 do 30 */
-.bg-hot { background-color: #fd7e14 !important; color: white; }
+.bg-hot { background-color: #fd7d148a !important; color: white; }
 
 /* Upał: powyżej 30 (korzystamy z gotowego danger lub robimy własny) */
-.bg-danger { background-color: #dc3545 !important; color: white; }
+.bg-danger { background-color: #dc354694 !important; color: white; }

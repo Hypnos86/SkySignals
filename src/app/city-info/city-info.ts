@@ -1,5 +1,6 @@
 import { Footer } from '../shared/footer/footer';
 import { Header } from '../shared/header/header';
+import { HumidityPipe } from '../shared/pipes/humidity-pipe';
 import { TemperaturePipe } from '../shared/pipes/temperature-pipe';
 import { WeatherDataInterface } from './../core/interfaces/weatherData-interface';
 import { WeatherService } from './../core/services/weather-service';
@@ -7,7 +8,7 @@ import { Component, input, OnInit, signal } from '@angular/core';
 
 @Component({
   selector: 'app-city-info',
-  imports: [Header, Footer, TemperaturePipe],
+  imports: [Header, Footer, TemperaturePipe, HumidityPipe],
   templateUrl: './city-info.html',
   styleUrl: './city-info.css',
 })

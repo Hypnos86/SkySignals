@@ -9,6 +9,7 @@
 
       <div class="card-body">
         <p>Temperatura: {{ data.temperatura |temperaturePipe}}</p>
+        <p>Wilgotność: {{ data.wilgotnosc_wzgledna | humidityPipe}}</p>
       </div>
     </div>
   } @else if (isLoading()) {
