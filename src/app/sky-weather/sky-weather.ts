@@ -4,10 +4,11 @@ import { StationInterface } from '../core/interfaces/station-interface';
 import { Header } from '../shared/header/header';
 import { Footer } from '../shared/footer/footer';
 import { RouterLink } from '@angular/router';
+import { TemperaturePipe } from '../shared/pipes/temperature-pipe';
 
 @Component({
   selector: 'app-sky-weather',
-  imports: [Header, Footer, RouterLink],
+  imports: [Header, Footer, RouterLink, TemperaturePipe],
   templateUrl: './sky-weather.html',
   styleUrl: './sky-weather.css',
 })
@@ -49,5 +50,16 @@ export class SkyWeather {
         this.isLoading.set(false);
       },
     });
+  }
+
+  getTempClass(temp: string|number){
+    const t = Number(temp)
+
+    if(t <= -10){return 'bg-ice'};
+    if(t > -10 && t <= 0){return 'bg-cold'};
+    if(t > 0 && t <= 10 ){return 'bg-mild'};
+    if(t >10 && t <= 20){return 'bg-warm'};
+    if(t > 20 && t <= 30){return 'bg-got'};
+    return 'bg-danger'
   }
 }

@@ -1,5 +1,5 @@
 export interface StationInterface {
   id_stacji: string;
   stacja: string;
-  temperatura: number;
+  temperatura: string;
 }

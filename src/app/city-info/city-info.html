@@ -8,7 +8,7 @@
       </div>
 
       <div class="card-body">
-        <p>Temperatura: {{ data.temperatura }}°C</p>
+        <p>Temperatura: {{ data.temperatura |temperaturePipe}}</p>
       </div>
     </div>
   } @else if (isLoading()) {

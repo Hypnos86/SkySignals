@@ -3,7 +3,7 @@ export interface WeatherDataInterface{
   stacja: string,
   data_pomiaru: string,
   godzina_pomiaru: number,
-  temperatura: number,
+  temperatura: string,
   predkosc_wiatru: number,
   kierunek_wiatru: number,
   wilgotnosc_wzgledna: number,

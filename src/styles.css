@@ -1,4 +1,17 @@
-/* You can add global styles to this file, and also import other style files */
-body{
-    width: 100%;
-}
+/* Bardzo zimno: poniżej -10 */
+.bg-ice { background-color: #003366 !important; color: white; }
+
+/* Mroźno: -10 do 0 */
+.bg-cold { background-color: #007bff !important; color: white; }
+
+/* Chłodno: 1 do 10 */
+.bg-mild { background-color: #20c997 !important; color: white; }
+
+/* Przyjemnie: 11 do 20 */
+.bg-warm { background-color: #ffc107 !important; color: black; }
+
+/* Ciepło: 21 do 30 */
+.bg-hot { background-color: #fd7e14 !important; color: white; }
+
+/* Upał: powyżej 30 (korzystamy z gotowego danger lub robimy własny) */
+.bg-danger { background-color: #dc3545 !important; color: white; }
