@@ -4,9 +4,9 @@ export interface WeatherDataInterface{
   data_pomiaru: string,
   godzina_pomiaru: number,
   temperatura: string,
-  predkosc_wiatru: number,
+  predkosc_wiatru: string,
   kierunek_wiatru: number,
   wilgotnosc_wzgledna: number,
   suma_opadu: number,
-  cisnienie: number
+  cisnienie: string
 }

@@ -9,7 +9,7 @@ export class HumidityPipe implements PipeTransform {
     if (!value) {
       return '';
     } else {
-      return value.concat("%");
+      return value.concat(" %");
     }
   }
 }

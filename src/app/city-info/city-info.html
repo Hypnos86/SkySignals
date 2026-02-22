@@ -2,16 +2,45 @@
 
 <div class="container my-5">
   @if (stationData(); as data) {
-    <div class="card mx-auto" style="max-width: 500px">
-      <div class="card-header bg-dark text-white">
+    <div class="card mx-auto" style="max-width: 1000px">
+      <div class="card-header bg-dark text-white d-inline-flex justify-content-between">
         <h2 class="mb-0">{{ data.stacja }}</h2>
+        <h4>{{ data.data_pomiaru | date: 'dd.mm.yyyy' }} r., g. {{ data.godzina_pomiaru }}</h4>
       </div>
-
-      <div class="card-body">
-        <p>Temperatura: {{ data.temperatura | temperaturePipe }}</p>
+      <div>
+        <div class="card-body text-center text-white bg-secondary">
+          <h4>Dane Synoptyczne</h4>
+        </div>
+        <div class="card-body row text-center">
+          <div class="card-body col-12 col-sm-12 col-md-6 col-lg-6 ">
+            <p>Temperatura: <span class="badge bg-secondary" [class]="getTempClass(data.temperatura)">{{ data.temperatura | temperaturePipe }}</span> </p>
+          </div>
+          <div class="card-body col-12 col-sm-12 col-md-6 col-lg-6">
+            <p>Wilgotność: {{ data.wilgotnosc_wzgledna | humidityPipe }}</p>
+          </div>
+          <div class="card-body col-12 col-sm-12 col-md-6 col-lg-6">
+            <p>Ciśnienie: {{ data.cisnienie | pressurePipe }}</p>
+          </div>
+          <div class="card-body col-12 col-sm-12 col-md-6 col-lg-6">
+            <p>Suma opadów: {{ data.suma_opadu | precipitationPipe }}</p>
+          </div>
+          <div class="card-body col-12">
+            <p>
+              Wiatr: {{ data.predkosc_wiatru | winterSpeedPipe }}
+              <b>{{ data.kierunek_wiatru | windDirectionPipe }}</b>
+            </p>
+          </div>
+        </div>
       </div>
-      <div class="card-body">
-        <p>Wilgotność: {{ data.wilgotnosc_wzgledna | humidityPipe }}</p>
+      <div>
+        <div class="card-body text-center text-white bg-info">
+          <h4>Dane Hydrologiczne</h4>
+        </div>
+        <div class="card-body row text-center">
+          <div class="card-body col-12 col-sm-12 col-md-6 col-lg-6 ">
+            <p> Następne dane </p>
+          </div>
+        </div>
       </div>
     </div>
   } @else if (isLoading()) {

@@ -9,7 +9,7 @@ export class TemperaturePipe implements PipeTransform {
     if(!value){
       return ""
     } else {
-      return value.concat('°C');
+      return value.concat(' °C');
     }
   }
 }
