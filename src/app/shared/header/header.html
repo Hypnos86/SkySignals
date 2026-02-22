@@ -1,11 +1,37 @@
 <header>
-  <nav class="mt-2">
-    <h3 class="text-center">
-      <a
-        class="link-body-emphasis link-offset-2 link-underline-opacity-25 link-underline-opacity-75-hover "
-        routerLink="/sky-weather">
-        {{ title | uppercase }}
-        </a>
-    </h3>
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark shadow-sm">
+    <div class="container">
+      <a class="navbar-brand d-flex align-items-center" routerLink="/sky-signals">
+        <img src="/logo.png" alt="logo" width="40" height="40" />
+        <h3 class="mx-3 mb-0 fs-4">{{ title | uppercase }}</h3>
+      </a>
+
+      <button
+        class="navbar-toggler"
+        type="button"
+        (click)="isMenuOpen.set(!isMenuOpen())"
+        aria-controls="navbarNav"
+        aria-expanded="false"
+        aria-label="Toggle navigation"
+      >
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <div class="collapse navbar-collapse" [class.show]="isMenuOpen()" id="navbarNav">
+        <ul class="navbar-nav ms-auto">
+          <li class="nav-item">
+            <a class="nav-link" routerLink="/sky-signals/synoptic" routerLinkActive="active"
+              >Dane Synoptyczne</a
+            >
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" routerLink="/sky-signals/hydrological" routerLinkActive="active">Dane Hydrologiczne</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" routerLink="/sky-signals/meteorological" routerLinkActive="active">Dane Meteorologiczne</a>
+          </li>
+        </ul>
+      </div>
+    </div>
   </nav>
 </header>

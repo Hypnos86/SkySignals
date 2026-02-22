@@ -4,6 +4,7 @@ body {
   background-attachment: fixed; /* Tło nie przewija się razem ze stroną */
   min-height: 100vh;
   margin: 0;
+  padding-bottom: 80px;
 }
 
 .btn:hover{

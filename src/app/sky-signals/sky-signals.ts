@@ -3,16 +3,15 @@ import { WeatherService } from '../core/services/weather-service';
 import { StationInterface } from '../core/interfaces/station-interface';
 import { Header } from '../shared/header/header';
 import { Footer } from '../shared/footer/footer';
-import { RouterLink } from '@angular/router';
-import { TemperaturePipe } from '../shared/pipes/temperature-pipe';
+
 
 @Component({
-  selector: 'app-sky-weather',
-  imports: [Header, Footer, RouterLink, TemperaturePipe],
-  templateUrl: './sky-weather.html',
-  styleUrl: './sky-weather.css',
+  selector: 'app-sky-signals',
+  imports: [Header, Footer],
+  templateUrl: './sky-signals.html',
+  styleUrl: './sky-signals.css',
 })
-export class SkyWeather {
+export class SkySignals {
   // private weatherService = inject(WeatherApi); sposób na wstrzyknięcie serwisu
 
   // poprawny sposób na wstrzyknięcie serwisu
