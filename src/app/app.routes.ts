@@ -8,7 +8,7 @@ export const routes: Routes = [
   // 1. Przekierowanie główne
   { path: '', pathMatch: 'full', redirectTo: 'sky-signals' },
 
-  // 2. Drzewo tras sky-weather
+  // 2. Drzewo tras sky-signals
   {
     path: 'sky-signals',
     children: [
@@ -18,17 +18,17 @@ export const routes: Routes = [
       {
         path: 'synoptic',
         children: [
-          // Adres: /sky-weather/synoptic
+          // Adres: /sky-signals/synoptic
           { path: '', component: SynopticDataComponent },
 
-          // Adres: /sky-weather/synoptic/station/:id
+          // Adres: /sky-signals/synoptic/station/:id
           { path: 'station/:id', component: StationDataComponent },
         ],
       },
       {
         path: 'hydrological',
         children: [
-          // Adres: /sky-weather/hydrological
+          // Adres: /sky-signals/hydrological
           { path: '', component: HydrologicalDataComponent },
         ],
       },
@@ -37,5 +37,5 @@ export const routes: Routes = [
   },
 
   // 3. Obsługa błędnych adresów
-  { path: '**', redirectTo: 'sky-weather/synoptic' },
+  { path: '**', redirectTo: 'sky-signals/' },
 ];
