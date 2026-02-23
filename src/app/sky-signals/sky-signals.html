@@ -7,7 +7,7 @@
         <div class="card-body">
           <div class="d-flex justify-content-between">
             <h4 class="text-danger">{{ warn.nazwa_zdarzenia }} (Stopień {{ warn.stopien }})</h4>
-            <p class="m-0">Obowiązuje od{{warn.opublikowano|date:" dd.mm.yyyy r."}}</p>
+            <p class="m-0">Obowiązuje od {{warn.opublikowano|date:"dd.MM.yyyy"}}</p>
           </div>
 
           <p>{{ warn.tresc }}</p>
