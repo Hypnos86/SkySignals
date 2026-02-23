@@ -16,9 +16,8 @@
             >
               <div class="text-center">
                 <span class="d-block fw-bold">{{ city.stacja }}</span>
-                <span class="badge bg-secondary" [class]="getTempClass(city.temperatura)">{{
-                  city.temperatura | temperaturePipe
-                }}</span>
+                <span class="badge bg-secondary" [class]="getTempClass(city.temperatura)">
+                  {{city.temperatura | temperaturePipe}}</span>
               </div>
             </a>
           </div>

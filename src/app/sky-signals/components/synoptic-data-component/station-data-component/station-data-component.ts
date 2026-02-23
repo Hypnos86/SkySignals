@@ -29,7 +29,7 @@ export class StationDataComponent {
   }
 
   getWeatherInfo() {
-    this.weatherService.getWeatherByStationId(this.id()).subscribe({
+    this.weatherService.getSynopticDataByStationId(this.id()).subscribe({
       next: (data) => {
         Promise.resolve().then(() => {
           this.stationData.set(data);

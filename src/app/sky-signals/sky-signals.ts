@@ -1,13 +1,14 @@
-import { Component, signal } from '@angular/core';
+import { Component, computed, signal } from '@angular/core';
 import { WeatherService } from '../core/services/weather-service';
-import { StationInterface } from '../core/interfaces/station-interface';
 import { Header } from '../shared/header/header';
 import { Footer } from '../shared/footer/footer';
-
+import { warningMeteoInterface } from '../core/interfaces/warningMeteo-interface';
+import administrationData from '../../../public/data/administrationData.json';
+import { DatePipe } from '@angular/common';
 
 @Component({
   selector: 'app-sky-signals',
-  imports: [Header, Footer],
+  imports: [Header, Footer, DatePipe],
   templateUrl: './sky-signals.html',
   styleUrl: './sky-signals.css',
 })
@@ -17,48 +18,59 @@ export class SkySignals {
   // poprawny sposób na wstrzyknięcie serwisu
   constructor(private weatherService: WeatherService) {}
 
-  weatherData = signal<any[]>([]);
+  warningData = signal<warningMeteoInterface[]>([]);
   isLoading = signal(true);
-  cities = signal<StationInterface[]>([]);
 
   ngOnInit(): void {
-    // this.weatherService.getAllWeather().subscribe({
-    //   next: (data) => {
-    //     this.weatherData.set(data); //zapisywanie danych do weatherData czyli do sygnału
-    //     this.isLoading.set(false);
-    //     console.log('dane załadowane', this.weatherService);
-    //   },
-    //   error:(err) =>{
-    //     console.error("Błąd przy wczytywaniu danych:", err);
-    //     this.isLoading.set(false)
-    //   }
-    // });
-    this.loadCities();
+    this.getWarningMeteo();
   }
 
-  loadCities() {
-    this.weatherService.getAllWeather().subscribe({
+  getWarningMeteo() {
+    this.weatherService.getWarningMeteorologicalInformation().subscribe({
       next: (data) => {
-        console.log('Moje dane', data);
-        this.cities.set(data);
+        this.warningData.set(data);
+        console.log(this.warningData());
         this.isLoading.set(false);
       },
       error: (err) => {
-        console.error('Błąd przy wczytywaniu dannych', err);
-        this.cities.set([]);
+        console.error(err);
         this.isLoading.set(false);
       },
     });
   }
 
-  getTempClass(temp: string|number){
-    const t = Number(temp)
+  // Dane wzbogacone o nazwy - to jest ta "magia"
+  enrichedWarnings = computed(() => {
+    const data = this.warningData();
+    const teryt: any = administrationData;
 
-    if(t <= -10){return 'bg-ice'};
-    if(t > -10 && t <= 0){return 'bg-cold'};
-    if(t > 0 && t <= 10 ){return 'bg-mild'};
-    if(t >10 && t <= 20){return 'bg-warm'};
-    if(t > 20 && t <= 30){return 'bg-got'};
-    return 'bg-danger'
-  }
+    return data.map((warning) => {
+      // 1. Tworzymy tymczasowy obiekt do grupowania: { "Pomorskie": ["bytowski", "Gdańsk"], ... }
+      const grouped: { [voivode: string]: string[] } = {};
+
+      warning.teryt.forEach((code) => {
+        const voivodeCode = code.substring(0, 2);
+        const voivode = teryt[voivodeCode];
+
+        const vName = voivode?.name || 'Nieznane województwo';
+        const cName = voivode?.powiaty?.[code] || 'Nieznany powiat';
+
+        if (!grouped[vName]) {
+          grouped[vName] = [];
+        }
+        grouped[vName].push(cName);
+      });
+
+      // 2. Zamieniamy obiekt na tablicę łatwą do wyświetlenia w @for: [{ name: "Pomorskie", counties: [...] }]
+      const groupedRegions = Object.keys(grouped).map((vName) => ({
+        voivodeName: vName,
+        counties: grouped[vName],
+      }));
+
+      return {
+        ...warning,
+        groupedRegions, // Nowa, zgrupowana struktura
+      };
+    });
+  });
 }
