@@ -1,3 +1,34 @@
 <app-header></app-header>
-<div class="container my-4"></div>
+<div class="container my-4">
+  <h4 class="text-center">Ostrzeżenia meteorologiczne</h4>
+  <div class="container">
+    @for (warn of enrichedWarnings(); track warn.id) {
+      <div class="card mb-4">
+        <div class="card-body">
+          <div class="d-flex justify-content-between">
+            <h4 class="text-danger">{{ warn.nazwa_zdarzenia }} (Stopień {{ warn.stopien }})</h4>
+            <p class="m-0">Obowiązuje od{{warn.opublikowano|date:" dd.mm.yyyy r."}}</p>
+          </div>
+
+          <p>{{ warn.tresc }}</p>
+          <hr />
+          <div class="area-info">
+            <h6 class="fw-bold">Obszar występowania:</h6>
+
+            @for (reg of warn.groupedRegions; track reg.voivodeName) {
+              <div class="mb-2">
+                <span class="badge bg-danger">{{ reg.voivodeName }}</span
+                >
+                <span class="text-muted">
+                  {{ reg.counties.join(', ') }}
+                </span>
+              </div>
+            }
+          </div>
+        </div>
+      </div>
+    }
+  </div>
+  <h4>Ostrzeżenia hydrologiczne</h4>
+</div>
 <app-footer></app-footer>

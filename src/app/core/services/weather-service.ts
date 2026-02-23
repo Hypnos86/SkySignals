@@ -3,12 +3,13 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { WeatherDataInterface } from '../interfaces/weatherData-interface';
 import { StationInterface } from '../interfaces/station-interface';
+import { warningMeteoInterface } from '../interfaces/warningMeteo-interface';
 
 @Injectable({
   providedIn: 'root', // serwis jest dostepny w całej aplikacji
 })
 export class WeatherService {
-  private apiUrl: string = 'https://danepubliczne.imgw.pl/api/data/synop'; //dane synaptyczne
+  private apiUrl: string = 'https://danepubliczne.imgw.pl/api/data'; //dane
 
   // wstrzykiwania seriwus przez konstruktir sposob nr 1
   constructor(private http: HttpClient) {}
@@ -18,12 +19,18 @@ export class WeatherService {
   // Pobieranie danych
 
   // Pobieranie całości stacji
-  getAllWeather(): Observable<StationInterface[]> {
-    return this.http.get<StationInterface[]>(this.apiUrl);
+  getAllSynopticData(): Observable<StationInterface[]> {
+    return this.http.get<StationInterface[]>(this.apiUrl.concat('/synop'));
   }
 
   // pobieranie danych dla jednego miasta id = miasto
-  getWeatherByStationId(id: string): Observable<WeatherDataInterface> {
-    return this.http.get<WeatherDataInterface>(`${this.apiUrl}/id/${id}`);
+  getSynopticDataByStationId(id: string): Observable<WeatherDataInterface> {
+    return this.http.get<WeatherDataInterface>(`${this.apiUrl.concat('/synop')}/id/${id}`);
+  }
+
+  //pobieranie ostrzezec metrorologicznych
+  // https://danepubliczne.imgw.pl/api/data/warningsmeteo
+  getWarningMeteorologicalInformation(): Observable<warningMeteoInterface[]> {
+    return this.http.get<any>(this.apiUrl.concat('/warningsmeteo'));
   }
 }
