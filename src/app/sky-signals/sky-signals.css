@@ -2,3 +2,11 @@
   text-align: justify;
   text-justify: inter-word;
 }
+
+.office{
+  font-size: 0.9rem;
+}
+
+hr{
+  margin: 5px;
+}

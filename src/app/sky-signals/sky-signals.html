@@ -9,7 +9,7 @@
             <h4 class="text-danger">{{ warn.nazwa_zdarzenia }} (Stopień {{ warn.stopien }})</h4>
             <p class="m-0">Obowiązuje od {{warn.opublikowano|date:"dd.MM.yyyy"}}</p>
           </div>
-          <span class="badge bg-info">Prawdopodobieństwo wystąpienia {{warn.prawdopodobienstwo}}%</span>
+          <span class="badge text-dark bg-warning">Prawdopodobieństwo wystąpienia {{warn.prawdopodobienstwo}}%</span>
           <p class="info-warning">{{ warn.tresc }}</p>
           <hr />
           <div class="area-info">
@@ -17,13 +17,17 @@
 
             @for (reg of warn.groupedRegions; track reg.voivodeName) {
               <div class="mb-2 info-warning">
-                <span class="badge bg-danger">{{ reg.voivodeName }}</span
+                <span class="badge bg-info">{{ reg.voivodeName }}</span
                 >
                 <span class="text-muted">
                   {{ reg.counties.join(', ') }}
                 </span>
               </div>
             }
+          </div>
+          <hr>
+          <div>
+            <span class="office">{{warn.biuro}}</span>
           </div>
         </div>
       </div>
