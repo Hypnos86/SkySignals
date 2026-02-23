@@ -9,14 +9,14 @@
             <h4 class="text-danger">{{ warn.nazwa_zdarzenia }} (Stopień {{ warn.stopien }})</h4>
             <p class="m-0">Obowiązuje od {{warn.opublikowano|date:"dd.MM.yyyy"}}</p>
           </div>
-
-          <p>{{ warn.tresc }}</p>
+          <span class="badge bg-info">Prawdopodobieństwo wystąpienia {{warn.prawdopodobienstwo}}%</span>
+          <p class="info-warning">{{ warn.tresc }}</p>
           <hr />
           <div class="area-info">
             <h6 class="fw-bold">Obszar występowania:</h6>
 
             @for (reg of warn.groupedRegions; track reg.voivodeName) {
-              <div class="mb-2">
+              <div class="mb-2 info-warning">
                 <span class="badge bg-danger">{{ reg.voivodeName }}</span
                 >
                 <span class="text-muted">
@@ -29,6 +29,6 @@
       </div>
     }
   </div>
-  <h4>Ostrzeżenia hydrologiczne</h4>
+  <h4 class="text-center">Ostrzeżenia hydrologiczne</h4>
 </div>
 <app-footer></app-footer>
