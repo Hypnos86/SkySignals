@@ -40,7 +40,6 @@ export class SynopticDataComponent {
   loadCities() {
     this.weatherService.getAllSynopticData().subscribe({
       next: (data) => {
-        console.log('Moje dane', data);
         this.cities.set(data);
         this.isLoading.set(false);
       },

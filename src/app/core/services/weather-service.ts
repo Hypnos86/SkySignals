@@ -31,6 +31,10 @@ export class WeatherService {
   //pobieranie ostrzezec metrorologicznych
   // https://danepubliczne.imgw.pl/api/data/warningsmeteo
   getWarningMeteorologicalInformation(): Observable<warningMeteoInterface[]> {
-    return this.http.get<any>(this.apiUrl.concat('/warningsmeteo'));
+    return this.http.get<warningMeteoInterface[]>(this.apiUrl.concat('/warningsmeteo'));
   }
+  getWarningHydroInformation():Observable<any>{
+    return this.http.get<any>(this.apiUrl.concat("/warningshydro"))
+  }
+
 }

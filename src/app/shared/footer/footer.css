@@ -1,0 +1,42 @@
+.gitPng {
+  filter: invert(1); /* Zamienia czarny na biały */
+  /* Jeśli chcesz, by był lekko szary/srebrny, użyj invert(0.8) */
+  margin-left: 10px;
+  vertical-align: middle;
+}
+
+.author {
+  vertical-align: middle;
+}
+
+.git-link {
+  text-decoration: none;
+  display: inline-block;
+  transition: transform 0.2s ease;
+}
+
+.git-link:hover {
+  transform: scale(1.2); /* Lekkie powiększenie przy najechaniu */
+}
+
+.gitPng-neon {
+  /* 1. Zamieniamy czarny na biały */
+  filter: invert(1)
+          /* 2. Nadajemy bazowy kolor (sepia + hue-rotate dla zieleni) */
+          sepia(1)
+          saturate(20)
+          hue-rotate(70deg)
+          brightness(1.2)
+          /* 3. Efekt neonowej poświaty (glow) */
+          drop-shadow(0 0 5px #39ff14)
+          drop-shadow(0 0 10px #39ff14);
+
+  transition: filter 0.3s ease;
+}
+
+.git-link:hover .gitPng-neon {
+  /* Mocniejszy blask przy najechaniu */
+  filter: invert(1) sepia(1) saturate(20) hue-rotate(70deg) brightness(1.5)
+          drop-shadow(0 0 8px #1495ff)
+          drop-shadow(0 0 15px #2414ff);
+}
