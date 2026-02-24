@@ -21,6 +21,12 @@
 
 .gitPng-neon {
   /* 1. Zamieniamy czarny na biały */
+  /* Wymiary muszą być równe */
+  width: 35px;
+  height: 35px;
+  border-radius: 50%;
+  object-fit: contain; /* Zachowuje proporcje logo wewnątrz koła */
+  padding: 2px; /* Daje trochę oddechu między logo a krawędzią koła */
   filter: invert(1)
           /* 2. Nadajemy bazowy kolor (sepia + hue-rotate dla zieleni) */
           sepia(1)
