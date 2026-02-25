@@ -1,4 +1,4 @@
-export interface hydrologicalDataInterface {
+export interface HydrologicalDataInterface {
   id_stacji: string;
   stacja: string;
   rzeka: string;

@@ -1,4 +1,42 @@
 <div class="card-body">
   <h4 class="text-center">Ostrzeżenia hydrologiczne</h4>
-  <div class="container"></div>
+  <div class="container">
+    @if (isLoading()) {
+      <div class="text-center py-5">Trwa ładowanie...</div>
+    } @else {
+      @for (warn of warningData(); track warn.zdarzenie) {
+        <div class="card mb-4">
+          <div class="card-body">
+            <div class="d-flex justify-content-between">
+              <h4 class="text-danger">{{ warn.zdarzenie }} (Stopień {{ warn.stopien }})</h4>
+              <p class="m-0">Opublikowano {{ warn.opublikowano | date: 'dd.MM.yyyy' }} r.</p>
+            </div>
+            <span class="badge text-dark bg-warning"
+              >Prawdopodobieństwo wystąpienia {{ warn.prawdopodobienstwo }}%</span
+            >
+            <p class="info-warning">{{ warn.przebieg }}</p>
+            <hr />
+            <div class="area-info">
+              <h6 class="fw-bold">Obszar występowania:</h6>
+
+              @for (reg of warn.obszary; track reg.wojewodztwo) {
+                <div class="mb-2 info-warning">
+                  <span class="badge bg-info">{{ reg.wojewodztwo }}</span>
+                  <span class="text-muted">
+                    {{ reg.opis}}
+                  </span>
+                </div>
+              }
+            </div>
+            <hr />
+            <div>
+              <span class="office">{{ warn.biuro }}</span>
+            </div>
+          </div>
+        </div>
+      } @empty {
+        <div class="col-12 text-center">Brak danych ...</div>
+      }
+    }
+  </div>
 </div>

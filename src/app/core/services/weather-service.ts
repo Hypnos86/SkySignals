@@ -3,7 +3,8 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { WeatherDataInterface } from '../interfaces/weatherData-interface';
 import { StationInterface } from '../interfaces/station-interface';
-import { warningMeteoInterface } from '../interfaces/warningMeteo-interface';
+import { WarningMeteoInterface } from '../interfaces/warningMeteo-interface';
+import { WarningHydroInterface } from '../interfaces/warningHydro-interface';
 
 @Injectable({
   providedIn: 'root', // serwis jest dostepny w całej aplikacji
@@ -28,13 +29,16 @@ export class WeatherService {
     return this.http.get<WeatherDataInterface>(`${this.apiUrl.concat('/synop')}/id/${id}`);
   }
 
-  //pobieranie ostrzezec metrorologicznych
-  // https://danepubliczne.imgw.pl/api/data/warningsmeteo
-  getWarningMeteorologicalInformation(): Observable<warningMeteoInterface[]> {
-    return this.http.get<warningMeteoInterface[]>(this.apiUrl.concat('/warningsmeteo'));
-  }
-  getWarningHydroInformation():Observable<any>{
-    return this.http.get<any>(this.apiUrl.concat("/warningshydro"))
+  getAllHydrologicalData(): Observable<any> {
+    return this.http.get<any[]>(this.apiUrl.concat('/hydro'));
   }
 
+  //pobieranie ostrzezec metrorologicznych
+  // https://danepubliczne.imgw.pl/api/data/warningsmeteo
+  getWarningMeteorologicalInformation(): Observable<WarningMeteoInterface[]> {
+    return this.http.get<WarningMeteoInterface[]>(this.apiUrl.concat('/warningsmeteo'));
+  }
+  getWarningHydrologicalInformation(): Observable<WarningHydroInterface[]> {
+    return this.http.get<WarningHydroInterface[]>(this.apiUrl.concat('/warningshydro'));
+  }
 }

@@ -1,6 +1,6 @@
 import { Component, computed, signal } from '@angular/core';
 import { WeatherService } from '../../../core/services/weather-service';
-import { warningMeteoInterface } from '../../../core/interfaces/warningMeteo-interface';
+import { WarningMeteoInterface } from '../../../core/interfaces/warningMeteo-interface';
 import administrationData from '../../../../../public/data/administrationData.json';
 import { DatePipe } from '@angular/common';
 
@@ -14,7 +14,7 @@ export class WarningMeteorologicalDataComponent {
   // poprawny sposób na wstrzyknięcie serwisu
   constructor(private weatherService: WeatherService) {}
 
-  warningData = signal<warningMeteoInterface[]>([]);
+  warningData = signal<WarningMeteoInterface[]>([]);
   isLoading = signal(true);
 
   ngOnInit(): void {

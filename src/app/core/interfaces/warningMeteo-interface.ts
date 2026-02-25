@@ -1,4 +1,4 @@
-export interface warningMeteoInterface {
+export interface WarningMeteoInterface {
   id: string;
   nazwa_zdarzenia: string;
   stopien: string;
