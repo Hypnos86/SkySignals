@@ -16,7 +16,16 @@
 }
 
 .git-link:hover {
-  transform: scale(1.2); /* Lekkie powiększenie przy najechaniu */
+  transform: scale(1.2);
+}
+
+.linkedin-link {
+  text-decoration: none;
+  display: inline-block;
+  transition: transform 0.2s ease;
+}
+.linkedin-link:hover{
+  transform: scale(1.2);
 }
 
 .gitPng-neon {
@@ -27,15 +36,9 @@
   border-radius: 50%;
   object-fit: contain; /* Zachowuje proporcje logo wewnątrz koła */
   padding: 2px; /* Daje trochę oddechu między logo a krawędzią koła */
-  filter: invert(1)
-          /* 2. Nadajemy bazowy kolor (sepia + hue-rotate dla zieleni) */
-          sepia(1)
-          saturate(20)
-          hue-rotate(70deg)
-          brightness(1.2)
-          /* 3. Efekt neonowej poświaty (glow) */
-          drop-shadow(0 0 5px #39ff14)
-          drop-shadow(0 0 10px #39ff14);
+  filter: invert(1) /* 2. Nadajemy bazowy kolor (sepia + hue-rotate dla zieleni) */ sepia(1)
+    saturate(20) hue-rotate(70deg) brightness(1.2) /* 3. Efekt neonowej poświaty (glow) */
+    drop-shadow(0 0 5px #14ff18) drop-shadow(0 0 10px #39ff14);
 
   transition: filter 0.3s ease;
 }
@@ -43,6 +46,24 @@
 .git-link:hover .gitPng-neon {
   /* Mocniejszy blask przy najechaniu */
   filter: invert(1) sepia(1) saturate(20) hue-rotate(70deg) brightness(1.5)
-          drop-shadow(0 0 8px #1495ff)
-          drop-shadow(0 0 15px #2414ff);
+    drop-shadow(0 0 8px #43ff14) drop-shadow(0 0 15px #14ff14);
+}
+
+.linkedPng-neon {
+  width: 45px;
+  height: 45px;
+  border-radius: 50%;
+  object-fit: contain; /* Zachowuje proporcje logo wewnątrz koła */
+  padding: 2px; /* Daje trochę oddechu między logo a krawędzią koła */
+  filter: invert(1) /* 2. Nadajemy bazowy kolor (sepia + hue-rotate dla zieleni) */ sepia(1)
+    saturate(20) hue-rotate(70deg) brightness(1.2) /* 3. Efekt neonowej poświaty (glow) */
+    drop-shadow(0 0 5px #3844f0) drop-shadow(0 0 10px #4349f6);
+
+  transition: filter 0.3s ease;
+}
+
+.linkedPng-neon:hover .gitPng-neon {
+  /* Mocniejszy blask przy najechaniu */
+  filter: invert(1) sepia(1) saturate(20) hue-rotate(70deg) brightness(1.5)
+    drop-shadow(0 0 8px #14ebff) drop-shadow(0 0 15px #14d4ff);
 }

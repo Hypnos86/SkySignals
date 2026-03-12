@@ -1,39 +1,40 @@
-import { Component, signal } from '@angular/core';
+import { Component, signal, OnInit, inject, computed } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
 import { WeatherService } from '../../../core/services/weather-service';
-import { StationInterface } from '../../../core/interfaces/station-interface';
+import { WeatherDataInterface } from '../../../core/interfaces/weatherData-interface';
 import { Header } from '../../../shared/header/header';
 import { Footer } from '../../../shared/footer/footer';
-import { RouterLink } from '@angular/router';
 import { TemperaturePipe } from '../../../shared/pipes/temperature-pipe';
 
 @Component({
   selector: 'app-synoptic-data-component',
-  imports: [Header, Footer, RouterLink, TemperaturePipe],
+  standalone: true,
+  imports: [Header, Footer, TemperaturePipe, FormsModule, CommonModule],
   templateUrl: './synoptic-data-component.html',
   styleUrl: './synoptic-data-component.css',
 })
-export class SynopticDataComponent {
-  // private weatherService = inject(WeatherApi); sposób na wstrzyknięcie serwisu
+export class SynopticDataComponent implements OnInit {
+  private weatherService = inject(WeatherService);
 
-  // poprawny sposób na wstrzyknięcie serwisu
-  constructor(private weatherService: WeatherService) {}
-
-  weatherData = signal<any[]>([]);
+  cities = signal<WeatherDataInterface[]>([]);
   isLoading = signal(true);
-  cities = signal<StationInterface[]>([]);
+  searchTerm = signal('');
+  selectedCity = signal<WeatherDataInterface | null>(null);
+
+  // Filtrowanie i sortowanie danych
+  filteredCities = computed(() => {
+    const term = this.searchTerm().toLowerCase();
+    return this.cities()
+      .filter((city) => {
+        const hasTemp = city.temperatura !== null && city.temperatura !== '';
+        const matchesSearch = city.stacja.toLowerCase().includes(term);
+        return hasTemp && matchesSearch;
+      })
+      .sort((a, b) => a.stacja.localeCompare(b.stacja));
+  });
 
   ngOnInit(): void {
-    // this.weatherService.getAllWeather().subscribe({
-    //   next: (data) => {
-    //     this.weatherData.set(data); //zapisywanie danych do weatherData czyli do sygnału
-    //     this.isLoading.set(false);
-    //     console.log('dane załadowane', this.weatherService);
-    //   },
-    //   error:(err) =>{
-    //     console.error("Błąd przy wczytywaniu danych:", err);
-    //     this.isLoading.set(false)
-    //   }
-    // });
     this.loadCities();
   }
 
@@ -44,31 +45,29 @@ export class SynopticDataComponent {
         this.isLoading.set(false);
       },
       error: (err) => {
-        console.error('Błąd przy wczytywaniu dannych', err);
-        this.cities.set([]);
+        console.error('Błąd:', err);
         this.isLoading.set(false);
       },
     });
   }
 
-  getTempClass(temp: string | number) {
-    const t = Number(temp);
+  openModal(city: WeatherDataInterface) {
+    this.selectedCity.set(city);
+    document.body.style.overflow = 'hidden';
+  }
 
-    if (t <= -10) {
-      return 'bg-ice';
-    }
-    if (t > -10 && t <= 0) {
-      return 'bg-cold';
-    }
-    if (t > 0 && t <= 10) {
-      return 'bg-mild';
-    }
-    if (t > 10 && t <= 20) {
-      return 'bg-warm';
-    }
-    if (t > 20 && t <= 30) {
-      return 'bg-got';
-    }
-    return 'bg-danger';
+  closeModal() {
+    this.selectedCity.set(null);
+    document.body.style.overflow = 'auto';
+  }
+
+  getTempClass(temp: string | number): string {
+    const t = Number(temp);
+    if (t <= -10) return 'temp-ice';
+    if (t <= 0) return 'temp-cold';
+    if (t <= 10) return 'temp-mild';
+    if (t <= 20) return 'temp-warm';
+    if (t <= 30) return 'temp-hot';
+    return 'temp-extreme';
   }
 }

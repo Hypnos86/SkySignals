@@ -1,31 +1,111 @@
 <app-header></app-header>
-<div class="container my-4">
-  <div class="text-center">
-    <h3 class="m-4">Dane Synoptyczne</h3>
+
+<div class="container main-content py-5">
+  <div class="text-center mb-5 mt-4">
+    <h1 class="display-6 fw-bold text-dark">DANE SYNOPTYCZNE</h1>
+    <div class="underline mx-auto"></div>
   </div>
-  <div class="overflow-hidden">
-    @if (isLoading()) {
-      <div class="text-center py-5">Trwa ładowanie...</div>
-    } @else {
-      <div class="row g-3 justify-content-center">
-        @for (city of cities(); track city.id_stacji) {
-          <div class="col-6 col-sm-6 col-lg-3">
-            <a
-              [routerLink]="['/sky-signals/synoptic/station', city.id_stacji]"
-              class="btn btn-outline-dark w-100 h-100 d-flex align-items-center justify-content-center py-3 shadow-sm"
-            >
-              <div class="text-center">
-                <span class="d-block fw-bold">{{ city.stacja }}</span>
-                <span class="badge bg-secondary" [class]="getTempClass(city.temperatura)">
-                  {{city.temperatura | temperaturePipe}}</span>
-              </div>
-            </a>
-          </div>
-        } @empty {
-          <div class="col-12 text-center">Brak stacji</div>
-        }
+
+  <div class="row justify-content-center mb-5">
+    <div class="col-md-8 col-lg-6">
+      <div class="search-box shadow-sm border rounded-pill overflow-hidden bg-white d-flex align-items-center px-4">
+        <span class="text-muted">🔍</span>
+        <input
+          type="text"
+          class="form-control border-0 py-3 ps-3 no-focus"
+          placeholder="Wyszukaj stację pomiarową..."
+          [ngModel]="searchTerm()"
+          (ngModelChange)="searchTerm.set($event)"
+        >
       </div>
-    }
+    </div>
   </div>
+
+  @if (isLoading()) {
+    <div class="text-center py-5">
+      <div class="spinner-grow text-primary" role="status"></div>
+      <p class="mt-3 text-muted fw-medium">Pobieranie aktualnych odczytów...</p>
+    </div>
+  } @else {
+    <div class="row g-4 justify-content-center">
+      @for (city of filteredCities(); track city.id_stacji) {
+        <div class="col-6 col-sm-6 col-md-4 col-lg-3">
+          <button
+            type="button"
+            (click)="openModal(city)"
+            class="station-button w-100 h-100 d-flex flex-column align-items-center shadow-sm"
+          >
+            <span class="station-name mb-3">{{ city.stacja }}</span>
+            <span class="temp-badge" [ngClass]="getTempClass(city.temperatura)">
+              {{ city.temperatura | temperaturePipe }}
+            </span>
+          </button>
+        </div>
+      } @empty {
+        <div class="col-12 text-center py-5">
+          <p class="fs-5 text-muted">Nie znaleziono stacji dla frazy: "<strong>{{ searchTerm() }}</strong>"</p>
+        </div>
+      }
+    </div>
+  }
 </div>
+
+@if (selectedCity(); as city) {
+  <div class="modal-backdrop-custom" (click)="closeModal()">
+    <div class="modal-card shadow-lg" (click)="$event.stopPropagation()">
+      <div class="modal-header-custom">
+        <div>
+          <h2 class="fw-bold m-0">{{ city.stacja }}</h2>
+          <small class="text-secondary">ID Stacji: {{ city.id_stacji }}</small>
+        </div>
+        <button class="btn-close-custom" (click)="closeModal()">×</button>
+      </div>
+
+      <div class="modal-body-custom mt-4">
+        <div class="row g-4">
+          <div class="col-12 text-center py-4 bg-light rounded-4 mb-2 border">
+            <span class="text-uppercase small fw-bold text-muted d-block mb-1">Temperatura Powietrza</span>
+            <h1 class="display-2 fw-bold text-dark mb-0">{{ city.temperatura }}°C</h1>
+          </div>
+
+          <div class="col-6 col-md-4">
+            <div class="data-item border rounded-3 p-3 text-center h-100">
+              <label>Wiatr</label>
+              <strong>{{ city.predkosc_wiatru }} m/s</strong>
+            </div>
+          </div>
+          <div class="col-6 col-md-4">
+            <div class="data-item border rounded-3 p-3 text-center h-100">
+              <label>Wilgotność</label>
+              <strong>{{ city.wilgotnosc_wzgledna }}%</strong>
+            </div>
+          </div>
+          <div class="col-6 col-md-4">
+            <div class="data-item border rounded-3 p-3 text-center h-100">
+              <label>Ciśnienie</label>
+              <strong>{{ city.cisnienie || '---' }} hPa</strong>
+            </div>
+          </div>
+          <div class="col-6 col-md-6">
+            <div class="data-item border rounded-3 p-3 text-center h-100">
+              <label>Opad</label>
+              <strong>{{ city.suma_opadu }} mm</strong>
+            </div>
+          </div>
+          <div class="col-6 col-md-6">
+            <div class="data-item border rounded-3 p-3 text-center h-100">
+              <label>Data odczytu</label>
+              <strong>{{ city.data_pomiaru }}</strong>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="modal-footer-custom mt-5 d-grid">
+        <button class="btn btn-dark btn-lg rounded-pill" (click)="closeModal()">Zamknij raport</button>
+      </div>
+    </div>
+  </div>
+}
+
 <app-footer></app-footer>

@@ -1,3 +1,143 @@
 <app-header></app-header>
-<p class="text-center">W trakcie przygotowania ...</p>
+
+<div class="container my-5">
+  <div class="row justify-content-center mb-5">
+    <div class="col-lg-8 text-center">
+      <h2 class="fw-bold text-dark mb-2 text-uppercase tracking-wider">Dane Meteorologiczne</h2>
+
+      <div class="search-container shadow-sm mt-4">
+        <input
+          type="text"
+          class="form-control border-0 py-3 ps-4"
+          placeholder="Szukaj stacji pomiarowej..."
+          [ngModel]="searchTerm()"
+          (ngModelChange)="updateSearch($event)"
+        />
+      </div>
+    </div>
+  </div>
+
+  @if (isLoading()) {
+    <div class="text-center py-5 mt-4">
+      <div class="custom-loader mb-3"></div>
+      <p class="text-muted fw-light">Synchronizacja danych...</p>
+    </div>
+  } @else {
+    <div class="row g-4">
+      @for (data of filteredWeather(); track data.kod_stacji) {
+        <div class="col-12 col-md-6 col-lg-4">
+          <div class="card weather-card border-0 h-100 shadow-sm">
+            <div class="card-body p-4 d-flex flex-column">
+              <div class="d-flex justify-content-between align-items-start mb-3">
+                <h5 class="fw-bold mb-0 text-dark">{{ data.nazwa_stacji }}</h5>
+                <div class="temp-pill" [class]="getTempClass(data.temperatura_powietrza)">
+                  {{ data.temperatura_powietrza }}°C
+                </div>
+              </div>
+
+              <div class="d-flex gap-3 mb-4">
+                <div class="small-info">
+                  <span class="d-block text-muted x-small">Wiatr</span>
+                  <span class="fw-bold">{{ data.wiatr_srednia_predkosc }} m/s</span>
+                </div>
+                <div class="small-info">
+                  <span class="d-block text-muted x-small">Wilgotność</span>
+                  <span class="fw-bold">{{ data.wilgotnosc_wzgledna }}%</span>
+                </div>
+              </div>
+
+              <button
+                (click)="openDetails(data)"
+                class="btn btn-outline-dark mt-auto rounded-pill fw-bold py-2 btn-sm-text"
+              >
+                SZCZEGÓŁY
+              </button>
+            </div>
+          </div>
+        </div>
+      } @empty {
+        <div class="col-12 text-center py-5">
+          <div class="empty-state-icon">☁️</div>
+          <h5 class="text-muted mt-3">Brak aktywnych stacji do wyświetlenia</h5>
+        </div>
+      }
+    </div>
+  }
+</div>
+
+@if (selectedStation(); as station) {
+  <div class="modal-overlay" (click)="closeModal()">
+    <div class="modal-window shadow-lg" (click)="$event.stopPropagation()">
+      <div class="modal-header-custom border-bottom pb-3">
+        <div>
+          <h3 class="fw-bold mb-0">{{ station.nazwa_stacji }}</h3>
+          <span class="badge bg-light text-dark border mt-1">ID: {{ station.kod_stacji }}</span>
+        </div>
+        <button class="close-btn" (click)="closeModal()">&times;</button>
+      </div>
+
+      <div class="modal-body-custom mt-4">
+        <div class="row g-4">
+          <div class="col-md-6">
+            <div class="detail-card">
+              <label>WARUNKI POWIETRZA</label>
+              <p>
+                Temp. powietrza: <strong>{{ station.temperatura_powietrza }}°C</strong>
+              </p>
+              <p>
+                Temp. gruntu: <strong>{{ station.temperatura_gruntu }}°C</strong>
+              </p>
+              <p>
+                Wilgotność: <strong>{{ station.wilgotnosc_wzgledna }}%</strong>
+              </p>
+              <p>
+                Opad (10 min): <strong>{{ station.opad_10min }} mm</strong>
+              </p>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="detail-card">
+              <label>WIATR I POŁOŻENIE</label>
+              <p>
+                Prędkość: <strong>{{ station.wiatr_srednia_predkosc }} m/s</strong>
+              </p>
+              <p>
+                Porywy: <strong>{{ station.wiatr_predkosc_maksymalna }} m/s</strong>
+              </p>
+              <p>
+                Kierunek: <strong>{{ station.wiatr_kierunek }}°</strong>
+              </p>
+              <p>
+                <strong>GPS:</strong>
+                <a
+                  [href]="
+                    'https://www.google.com/maps/search/?api=1&query=' +
+                    station.lat +
+                    ',' +
+                    station.lon
+                  "
+                  target="_blank"
+                  class="gps-link"
+                  title="Zobacz na Google Maps"
+                >
+                  Pokaż
+                  <span class="ms-1">📍</span>
+                </a>
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div class="update-info mt-4 pt-3">
+          <i class="bi bi-clock"></i> Pomiar z dnia: {{ station.temperatura_powietrza_data }}
+        </div>
+      </div>
+
+      <div class="modal-footer-custom mt-4 text-center">
+        <button class="btn btn-dark px-5 rounded-pill" (click)="closeModal()">ZAMKNIJ</button>
+      </div>
+    </div>
+  </div>
+}
+
 <app-footer></app-footer>

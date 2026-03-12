@@ -5,6 +5,7 @@ import { WeatherDataInterface } from '../interfaces/weatherData-interface';
 import { StationInterface } from '../interfaces/station-interface';
 import { WarningMeteoInterface } from '../interfaces/warningMeteo-interface';
 import { WarningHydroInterface } from '../interfaces/warningHydro-interface';
+import { MeteorologicalDataInterface } from '../interfaces/meteorologicalData-interface';
 
 @Injectable({
   providedIn: 'root', // serwis jest dostepny w całej aplikacji
@@ -20,8 +21,8 @@ export class WeatherService {
   // Pobieranie danych
 
   // Pobieranie całości stacji
-  getAllSynopticData(): Observable<StationInterface[]> {
-    return this.http.get<StationInterface[]>(this.apiUrl.concat('/synop'));
+  getAllSynopticData(): Observable<WeatherDataInterface[]> {
+    return this.http.get<WeatherDataInterface[]>(this.apiUrl.concat('/synop'));
   }
 
   // pobieranie danych dla jednego miasta id = miasto
@@ -33,8 +34,10 @@ export class WeatherService {
     return this.http.get<any[]>(this.apiUrl.concat('/hydro'));
   }
 
-  //pobieranie ostrzezec metrorologicznych
-  // https://danepubliczne.imgw.pl/api/data/warningsmeteo
+  getAllMeteorologicalData(): Observable<MeteorologicalDataInterface[]> {
+    return this.http.get<MeteorologicalDataInterface[]>(this.apiUrl.concat('/meteo'));
+  }
+
   getWarningMeteorologicalInformation(): Observable<WarningMeteoInterface[]> {
     return this.http.get<WarningMeteoInterface[]>(this.apiUrl.concat('/warningsmeteo'));
   }

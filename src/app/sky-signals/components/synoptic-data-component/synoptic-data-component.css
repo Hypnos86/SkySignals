@@ -1,0 +1,65 @@
+.main-content { min-height: 80vh; }
+.underline { width: 80px; height: 5px; background: #0d6efd; border-radius: 10px; }
+.no-focus:focus { box-shadow: none; outline: none; }
+
+/* PRZYCISK STACJI */
+.station-button {
+  background: #ffffff;
+  border: 1px solid #dee2e6;
+  border-radius: 20px;
+  padding: 25px 15px;
+  transition: all 0.3s ease;
+}
+
+.station-button:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 12px 30px rgba(0,0,0,0.1) !important;
+  border-color: #adb5bd;
+}
+
+.station-name {
+  color: #2d3436;
+  font-weight: 700;
+  font-size: 1.1rem;
+  letter-spacing: -0.5px;
+}
+
+/* TEMPERATURA BADGE - WYSOKI KONTRAST */
+.temp-badge {
+  color: #ffffff !important;
+  font-weight: 800;
+  padding: 8px 20px;
+  border-radius: 50px;
+  min-width: 85px;
+  text-shadow: 0 1px 3px rgba(0,0,0,0.3);
+  font-size: 0.95rem;
+}
+
+/* Kolory nasycone */
+.temp-ice { background: linear-gradient(135deg, #0984e3, #00cec9); } /* Głęboki błękit */
+.temp-cold { background: linear-gradient(135deg, #00b894, #55efc4); } /* Mocna zieleń */
+.temp-mild { background: linear-gradient(135deg, #27ae60, #a8e063); } /* Ciemniejsza zieleń */
+.temp-warm { background: linear-gradient(135deg, #f39c12, #f1c40f); } /* Pomarańczowy */
+.temp-hot { background: linear-gradient(135deg, #e17055, #d63031); } /* Czerwień */
+.temp-extreme { background: linear-gradient(135deg, #2d3436, #d63031); } /* Czarny-Czerwony */
+
+/* MODAL */
+.modal-backdrop-custom {
+  position: fixed; top:0; left:0; width:100%; height:100%;
+  background: rgba(0,0,0,0.5); backdrop-filter: blur(8px);
+  display:flex; align-items:center; justify-content:center; z-index:3000;
+  animation: fadeIn 0.2s ease;
+}
+
+.modal-card {
+  background: white; width: 95%; max-width: 600px; padding: 40px;
+  border-radius: 30px; animation: slideUp 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.modal-header-custom { display: flex; justify-content: space-between; align-items: flex-start; }
+.btn-close-custom { background: none; border: none; font-size: 2.5rem; line-height: 0.5; color: #adb5bd; }
+
+.data-item label { display: block; font-size: 0.7rem; color: #6c757d; text-transform: uppercase; font-weight: 800; margin-bottom: 5px; }
+
+@keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+@keyframes slideUp { from { transform: scale(0.9) translateY(20px); opacity: 0; } to { transform: scale(1) translateY(0); opacity: 1; } }
